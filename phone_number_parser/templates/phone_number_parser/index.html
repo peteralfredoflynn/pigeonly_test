@@ -1,0 +1,50 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Parse Phone Numbers</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'phone_number_parser/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'phone_number_parser/css/main.css' %}" />
+</head>
+<body>
+    <div class="bs-header">
+        <div class="container">
+            <div><img id="logo" src="{% static 'phone_number_parser/images/pigeonly_logo_words.svg' %}"/></div>
+            <h1>Phone Number Parser</h1>
+            <p>Paste text below and retrieve a list of phone numbers from that text.</p>
+        </div>
+    </div>
+    <div class="container">
+        <div id="error_message"></div>
+        <div class="row">
+            <div class="col-md-10">
+                <form role="form" data-toggle="validator" method="post" action="{% url 'parse' %}" id="parse-form">
+                    <!-- CSRF Token prevents cross site attacks and is required -->
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <textarea data-minlength="10" maxlength="5000" rows="10" id="parse-text"
+                                  placeholder="Paste your text here." data-error="Minimum of 10
+                                  charaters and max of 5000 characters" required></textarea>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10">
+                <h2 id="message"></h2>
+                <ol id="numbers"></ol>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'phone_number_parser/js/jquery-1.12.4.min.js' %}"></script>
+    <script src="{% static 'phone_number_parser/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'phone_number_parser/js/validator.js' %}"></script>
+    <script src="{% static 'phone_number_parser/js/main.js' %}"></script>
+</body>
+</html>
