@@ -1,6 +1,10 @@
+///////////////////////////////////////////////////////////////////////////////
+// Function parse_text() gets called after the form is submitted.
+// It sends an ajax call to the Django view and retrieves a JSON list of
+// phone numbers. If there are numbers, they are rendered to the screen.
+// If not, a message displays that no numbers were found.
+///////////////////////////////////////////////////////////////////////////////
 function parse_text() {
-    console.log('parse text is working!');
-    console.log($('#parse-text').val());
 
     function add_list_item(item) {
         $('#numbers').append('<li>' + item + '</li>')
@@ -10,28 +14,39 @@ function parse_text() {
         url: "/",
         type: "POST",
         data: { the_text : $('#parse-text').val()},
-
         success: function(json) {
-            $('#post-text').val('');
-            console.log(json.phone_number_list);
-            json.phone_number_list.forEach(add_list_item);
-            console.log("success");
-        },
+            $('#parse-text').val('');
+            var num_list = json.phone_number_list;
+            if (num_list.length > 0) {
+                $('#message').text('Voila! Numbers found.');
+                json.phone_number_list.forEach(add_list_item);
+            } else {
+                $('#message').text('No numbers found.')
+            }
 
-        error: function(xhr,errmsg,err) {
-            $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
-                " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+        },
+        error: function(xhr, errmsg, err) {
+            $('#error_message').html("<div class='alert alert-warning' data-alert>Oops! We have encountered an error: "+errmsg+
+                " <a href='/' class='close'>&times;</a></div>"); // add the error to the dom
             console.log(xhr.status + ": " + xhr.responseText);
         }
 
-    })
+    });
 }
-
+///////////////////////////////////////////////////////////////////////////////
 // Submit post on submit
-$('#parse-form').on('submit', function(event){
+// Manual check to see if text is required minimum length
+///////////////////////////////////////////////////////////////////////////////
+$('#parse-form').on('submit', function(e){
     event.preventDefault();
-    console.log("form submitted!");  // sanity check
-    parse_text();
+    if ($('#parse-text').val().length > 9) {
+        $('#numbers').html('');
+        console.log("form submitted!");  // sanity check
+        parse_text();
+    } else {
+        console.log('Invalid Form')
+    }
+
 });
 
 ///////////////////////////////////////////////////////////////////////////////
