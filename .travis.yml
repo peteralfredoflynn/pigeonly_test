@@ -12,7 +12,7 @@ env:
 before_install:
   - export SECRET_KEY=$SECRET_KEY
   - export DJANGO_SETTINGS_MODULE=pigeonly_test.travis-settings
-  - export PYTHONPATH=$HOME/builds/pigeonly_test
+  - export PYTHONPATH=$HOME/builds/peteralfredoflynn/pigeonly_test
   - export PIP_USE_MIRRORS=true
 
 install:
