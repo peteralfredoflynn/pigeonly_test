@@ -13,7 +13,7 @@
         <div class="container">
             <div><img id="logo" src="{% static 'phone_number_parser/images/pigeonly_logo_words.svg' %}"/></div>
             <h1>Phone Number Parser</h1>
-            <p>Find phone numbers embedded in a snippet of text.</p>
+            <p>Find phone numbers embedded in text.</p>
         </div>
     </div>
     <div class="container">
@@ -24,9 +24,9 @@
                     <!-- CSRF Token prevents cross site attacks and is required -->
                     {% csrf_token %}
                     <div class="form-group">
-                        <textarea data-minlength="10" maxlength="5000" rows="10" id="parse-text"
+                        <textarea data-minlength="10" maxlength="10000" rows="10" id="parse-text"
                                   placeholder="Paste your text here." data-error="Minimum of 10
-                                  charaters and max of 5000 characters" required></textarea>
+                                  charaters and max of 10000 characters" required></textarea>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group">
