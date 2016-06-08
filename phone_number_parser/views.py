@@ -11,6 +11,7 @@ def parse_text(request):
     # form with one textarea field. A POST of this form passes the text via an
     # ajax call in the field 'the_text'. The text is parsed using REGEX for
     # phone numbers and passed back as a JSON object.
+    # See main.js for the ajax request and success callback function.
     #
     ###########################################################################
 
